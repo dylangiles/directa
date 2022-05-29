@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<OutputType>Exe</OutputType>
+		<TargetFramework>net5.0</TargetFramework>
+		<Nullable>enable</Nullable>
+		<StartupObject>Directa.Compiler.Program</StartupObject>
+	</PropertyGroup>
+	<ItemGroup>
+	  <None Remove="Exceptions\" />
+	  <None Remove="AbstractSyntaxTree\" />
+	  <None Remove="AbstractSyntaxTree\Types\" />
+	</ItemGroup>
+	<ItemGroup>
+	  <Folder Include="Exceptions\" />
+	  <Folder Include="AbstractSyntaxTree\" />
+	  <Folder Include="AbstractSyntaxTree\Literals\" />
+	  <Folder Include="AbstractSyntaxTree\Types\" />
+	</ItemGroup>
+	<ItemGroup>
+	  <ProjectReference Include="..\Directa.Runtime\Directa.Runtime.csproj" />
+	</ItemGroup>
+</Project>
