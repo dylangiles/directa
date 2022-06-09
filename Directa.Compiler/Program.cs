@@ -1,14 +1,17 @@
-﻿using System;
+﻿using Antlr4.Runtime;
+using Directa.Compiler.AbstractSyntaxTree;
+
+using Directa.Compiler.Parser;
+using System;
+using System.IO;
+
 namespace Directa.Compiler
 {
     public static class Program
     {
         public static void Main(string[] args)
         {
-            string inFile = args[0];
-            string outFile = args[1];
-            Compiler compiler = new Compiler(inFile, outFile);
-            compiler.Compile();
+            
         }
     }
 }

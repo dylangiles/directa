@@ -2,10 +2,12 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>net5.0</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Directa.Compiler\Directa.Compiler.csproj" />
+    <ProjectReference Include="..\Directa.Runtime\Directa.Runtime.csproj" />
   </ItemGroup>
 </Project>

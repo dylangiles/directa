@@ -2,7 +2,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
 		<OutputType>Exe</OutputType>
-		<TargetFramework>net5.0</TargetFramework>
+		<TargetFramework>net6.0</TargetFramework>
 		<Nullable>enable</Nullable>
 		<StartupObject>Directa.Compiler.Program</StartupObject>
 	</PropertyGroup>
@@ -10,12 +10,22 @@
 	  <None Remove="Exceptions\" />
 	  <None Remove="AbstractSyntaxTree\" />
 	  <None Remove="AbstractSyntaxTree\Types\" />
+	  <None Update="Parser\test.dta">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
 	</ItemGroup>
 	<ItemGroup>
-	  <Folder Include="Exceptions\" />
-	  <Folder Include="AbstractSyntaxTree\" />
 	  <Folder Include="AbstractSyntaxTree\Literals\" />
-	  <Folder Include="AbstractSyntaxTree\Types\" />
+	</ItemGroup>
+	<ItemGroup>
+	  <PackageReference Include="Antlr4" Version="4.6.6">
+	    <PrivateAssets>all</PrivateAssets>
+	    <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+	  </PackageReference>
+	  <PackageReference Include="Antlr4.Runtime" Version="4.6.6" />
+	</ItemGroup>
+	<ItemGroup>
+	  <Content Include="Parser\Directa.g4" />
 	</ItemGroup>
 	<ItemGroup>
 	  <ProjectReference Include="..\Directa.Runtime\Directa.Runtime.csproj" />

@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Directa.Compiler.AbstractSyntaxTree
 {
-    public abstract class Statement
+    public class Statement : Node
     {
-        public Statement()
-        {
-        }
-
-        public abstract List<byte> Compile();
     }
 }

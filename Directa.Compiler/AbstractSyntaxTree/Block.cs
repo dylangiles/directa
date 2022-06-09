@@ -1,28 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
-namespace Directa.Compiler.AbstractSyntaxTree
+namespace Directa.Compiler.AbstractSyntaxTree;
+
+public class Block
 {
-    public class Block : Statement
+    public List<Statement> Statements { get; private set; }
+    
+    public Dictionary<string, string> Symbols { get; private set; }
+
+    public Block()
     {
-        public List<Statement> Statements { get; private set; }
-        public List<Declaration> Declarations { get; private set; }
-
-        public Block()
-        {
-            Statements = new List<Statement>();
-            Declarations = new List<Declaration>();
-        }
-
-        public void AddStatement(Statement statement) => Statements.Add(statement);
-
-        public override List<byte> Compile()
-        {
-            List<byte> result = new List<byte>();
-            foreach (Statement statement in Statements)
-                result.AddRange(statement.Compile());
-
-            return result;
-        }
+        Statements = new List<Statement>();
+        Symbols = new Dictionary<string, string>();
     }
 }

@@ -1,32 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-using Directa.Runtime.Instructions;
 namespace Directa.Compiler.AbstractSyntaxTree
 {
     public class Declaration : Statement
     {
-        public Expression? Assignment { get; private set; }
         public string Identifier { get; private set; }
-
-        public Declaration(string identifier, Expression? assignment)
+        public ParserTypeDefinition TypeDefinition { get; private set; }
+        public Expression? Assignment{ get; private set; }
+        
+        public Declaration(string identifier, ParserTypeDefinition typeDefinition, Expression? assignment)
         {
             Identifier = identifier;
+            TypeDefinition = typeDefinition;
             Assignment = assignment;
-        }
-
-        public void SetAssignment(Expression? assignment) => Assignment = assignment;
-
-
-        public override List<byte> Compile()
-        {
-            List<Instruction> instructions = new List<Instruction>();
-
-            List<byte> bytes = new List<byte>();
-            foreach (Instruction instruction in instructions)
-                bytes.AddRange(instruction.AsBytes());
-
-            return bytes;
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using Directa.Compiler.AbstractSyntaxTree;
 
 namespace Directa.Interpreter
 {
@@ -6,13 +7,11 @@ namespace Directa.Interpreter
     {
         static void Main(string[] args)
         {
-            string program = @"
-a: integer = 123
-b: integer = 246
-c: integer = a + b
-return c";
+            Compiler.Compiler compiler = new Compiler.Compiler();
+            ParserProgram program = compiler.GetProgram("Parser");
             Interpreter interpreter = new Interpreter(program);
             interpreter.Interpret();
+            Console.WriteLine(interpreter.ReturnCode);
         }
     }
 }

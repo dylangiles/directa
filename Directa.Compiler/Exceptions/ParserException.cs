@@ -1,14 +1,17 @@
 ﻿using System;
-namespace Directa.Compiler.Exceptions
-{
-    public class CompilerException : Exception
-    {
-        public CompilerException(int line, int column) :
-            base(String.Format("Unknown error at line {0}, position {1}", line, column))
-        { }
+using Antlr4.Runtime.Tree;
 
-        public CompilerException(int line, int column, string error) :
-            base(String.Format("{0} at line {1}, position {2}", error, line, column))
-        { }
+namespace Directa.Compiler.Exceptions;
+
+public class ParserException : Exception
+{
+    
+    public virtual string ErrorCode
+    {
+        get => Errors.ErrorCodes.ERROR_UNKNOWN_ERROR;
     }
+    public ParserException(ITerminalNode node, string message) : 
+        base($"{message} at line {node.Symbol.Line}, position {node.Symbol.Column}") {}
+    
+    public ParserException(string message) : base($"Parsing error: {message}") {}
 }

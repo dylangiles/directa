@@ -1,69 +1,39 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
+using Antlr4.Runtime;
 using Directa.Compiler.AbstractSyntaxTree;
+using Directa.Compiler.Exceptions;
+using Directa.Compiler.Parser;
 
-namespace Directa.Compiler
+namespace Directa.Compiler;
+
+public class Compiler
 {
-    public class Compiler
+    public ParserProgram GetProgram(string filename) 
     {
-        private string _inFile;
-        private string _outFile;
-        private string? _buffer;
+        string fileName = "Parser" + Path.DirectorySeparatorChar + "test.dta";
+        string fileContents = File.ReadAllText(fileName);
 
-        public Compiler(string inFile, string outFile)
+        AntlrInputStream inputStream = new AntlrInputStream(fileContents);
+
+        DirectaLexer lexer = new DirectaLexer(inputStream);
+        CommonTokenStream commonTokenStream = new CommonTokenStream(lexer);
+        DirectaParser parser = new DirectaParser(commonTokenStream);
+
+        DirectaParser.ProgramContext programContext = parser.program();
+        ProgramVisitor visitor = new ProgramVisitor();
+        ParserProgram? program = visitor.VisitProgram(programContext);
+
+        if (program.Errors.Count > 0)
         {
-            _inFile = inFile;
-            _outFile = outFile;
+            foreach(Errors.CompilerError error in program.Errors)
+            {
+                Console.WriteLine(error);                
+            }
+
+            Environment.Exit(-1);
         }
 
-        public void Compile()
-        {
-            using (FileStream fs = new FileStream(_inFile, FileMode.Open, FileAccess.Read, FileShare.Read))
-            {
-                using (StreamReader sr = new StreamReader(fs))
-                    _buffer = sr.ReadToEnd();
-            }
-
-            List<Token> tokens = new List<Token>();
-            Lexer lexer = new Lexer(_buffer);
-            lexer.Run();
-            while (true)
-            {
-                try
-                {
-                    Token? token = lexer.GetToken();
-                    if (token is null)
-                        break;
-
-                    if (token.TokenType != Lexer.TokenType.Whitespace && token.TokenType != Lexer.TokenType.NewLine)
-                        tokens.Add(token);
-                }
-                catch (Exception)
-                {
-                    break;
-                }
-
-            }
-
-            TokenStack tokenList = new TokenStack(tokens);
-            Parser parser = new Parser(tokenList);
-            parser.Parse();
-
-            if (File.Exists(_outFile))
-                File.Delete(_outFile);
-
-            List<byte> compiledProgram = new List<byte>();
-            foreach (Block block in parser.Blocks)
-            {
-                foreach (Statement statement in block.Statements)
-                    compiledProgram.AddRange(statement.Compile().ToArray());
-            }
-
-            using (FileStream fs = new FileStream(_outFile, FileMode.Create, FileAccess.Write, FileShare.Write))
-            {
-                fs.Write(compiledProgram.ToArray(), 0, compiledProgram.Count);
-            }
-        }
+        return program ?? new ParserProgram();
     }
 }

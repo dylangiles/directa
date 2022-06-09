@@ -1,0 +1,4 @@
+﻿a: integer = 123;
+b: integer = 246;
+c: integer = a + b;
+return c;
