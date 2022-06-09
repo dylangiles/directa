@@ -3,7 +3,7 @@
 #include "stack.h"
 
 int main() {
-    struct Stack* stack = stack_create(3);
+    Stack* stack = stack_create(3);
     int number1 = 123;
     int number2 = 456;
     int number3 = 789;

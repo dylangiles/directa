@@ -1,11 +1,12 @@
 
 
 #include <string.h>
+
 #include "stack.h"
 
-struct Stack* stack_create(unsigned capacity) {
+Stack* stack_create(unsigned capacity) {
     // Allocate the stack object itself
-    struct Stack* stack = (struct Stack*)malloc(sizeof(struct Stack));
+    Stack* stack = (Stack*)malloc(sizeof(Stack));
     stack->originalCapacity = capacity;
     stack->currentCapacity = capacity;
     stack->stackPointer = STACK_BEGIN;
@@ -14,27 +15,27 @@ struct Stack* stack_create(unsigned capacity) {
     stack->array = (void**)malloc(stack->currentCapacity * sizeof(void*));
 }
 
-void stack_destroy(struct Stack* stack) {
+void stack_destroy(Stack* stack) {
     free(stack->array);
     free(stack);
 }
 
-void stack_push(struct Stack* stack, void* object) {
+void stack_push(Stack* stack, void* object) {
     stack->stackPointer += 1;
     stack->array[stack->stackPointer] = object;
 }
 
-void* stack_pop(struct Stack* stack) {
+void* stack_pop(Stack* stack) {
     void* result = stack->array[stack->stackPointer];
     stack->stackPointer -= 1;
     return result;
 }
 
-int stack_is_full(struct Stack* stack) {
+int stack_is_full(Stack* stack) {
     return stack->stackPointer == stack->currentCapacity;
 }
 
-void stack_dump(struct Stack* stack) {
+void stack_dump(Stack* stack) {
     printf("### Value stack dump ###\n\n");
     printf("\tStack grows towards higher addresses.\n");
     printf("\tStack currentCapacity: %d\n", stack->currentCapacity);
@@ -49,7 +50,7 @@ void stack_dump(struct Stack* stack) {
     printf("\n### End of value stack dump ###\n\n");
 }
 
-void stack_extend(struct Stack* stack) {
+void stack_extend(Stack* stack) {
     void** saveBuffer = (void**)malloc(stack->currentCapacity * sizeof(void*));
     int saveBufferSize = sizeof(saveBuffer);
     for(int i = 0;i < sizeof(saveBuffer); i++) {
@@ -57,7 +58,7 @@ void stack_extend(struct Stack* stack) {
     }
 
     stack->currentCapacity = stack->currentCapacity + stack->originalCapacity;
-    realloc(stack->array, stack->currentCapacity * sizeof(void*));
+    void* unused = realloc(stack->array, stack->currentCapacity * sizeof(void*));
 
 
     for(int i = 0;i < sizeof(saveBuffer); i++) {

@@ -15,18 +15,18 @@
 
 #define STACK_BEGIN -1
 
-typedef struct Stack {
+typedef struct {
     unsigned stackPointer;
     unsigned currentCapacity;
     unsigned originalCapacity;
     void** array;
-};
+} Stack;
 
-struct Stack* stack_create(unsigned capacity);
-void stack_destroy(struct Stack* stack);
-void stack_push(struct Stack* stack, void* object);
-void* stack_pop(struct Stack*);
-int stack_is_full(struct Stack* stack);
-void stack_dump(struct Stack* stack);
-void stack_extend(struct Stack* stack);
+Stack* stack_create(unsigned capacity);
+void stack_destroy(Stack* stack);
+void stack_push(Stack* stack, void* object);
+void* stack_pop(Stack*);
+int stack_is_full(Stack* stack);
+void stack_dump(Stack* stack);
+void stack_extend(Stack* stack);
 
