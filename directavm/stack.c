@@ -13,6 +13,8 @@ Stack* stack_create(unsigned capacity) {
 
     // Allocate bytes equal to currentCapacity times size of a void pointer.
     stack->array = (void**)malloc(stack->currentCapacity * sizeof(void*));
+
+    return stack;
 }
 
 void stack_destroy(Stack* stack) {
