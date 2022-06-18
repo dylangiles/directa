@@ -1,0 +1,11 @@
+//
+// Created by Dylan Giles on 11/6/2022.
+//
+
+#ifndef DIRECTAVM_INSTRUCTIONS_H
+#define DIRECTAVM_INSTRUCTIONS_H
+
+#endif //DIRECTAVM_INSTRUCTIONS_H
+
+#define OPCODE_NOP 0
+#define OPCODE_PUSH_INT 0

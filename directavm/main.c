@@ -3,22 +3,11 @@
 #include "stack.h"
 
 int main() {
-    Stack* stack = stack_create(3);
-    int number1 = 123;
-    int number2 = 456;
-    int number3 = 789;
+    EvaluationStack* evalStack = eval_stack_create(sizeof(uint64_t) * 3);
 
-    stack_push(stack, &number1);
-    stack_push(stack, &number2);
-    stack_push(stack, &number3);
+//    eval_stack_push_int(evalStack, 0x0102030405060708);
+    eval_stack_push_float(evalStack, 1.456);
+    printf("");
 
-    printf("Before extend\n");
-    stack_dump(stack);
-
-    stack_extend(stack);
-
-    printf("After extend\n");
-    stack_dump(stack);
-
-    stack_destroy(stack);
+    eval_stack_destroy(evalStack);
 }
